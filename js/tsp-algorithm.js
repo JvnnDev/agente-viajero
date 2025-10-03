@@ -1,9 +1,3 @@
-/**
- * TSP Algorithm - Brute Force Implementation
- * Jude Alessandro Hermoza Quispe (u202318220)
- * MA475 - Matemática Computacional
- */
-
 class TSPSolver {
     /**
      * Genera todas las permutaciones de un array
@@ -104,8 +98,13 @@ class TSPSolver {
         const exportData = {
             metadata: {
                 fecha: new Date().toLocaleString('es-PE'),
-                estudiante: 'Jude Alessandro Hermoza Quispe',
-                codigo: 'u202318220',
+                integrantes: [
+                    { nombre: 'Steven Angel Coaila Zaa', codigo: 'u202216463' },
+                    { nombre: 'Jude Alessandro Hermoza Quispe', codigo: 'u202318220' },
+                    { nombre: 'Nicolas Tantalean Granda', codigo: 'u202410728' },
+                    { nombre: 'Renzo Piero Santos Minaya', codigo: 'u202114790' },
+                    { nombre: 'Santiago Luis Nahui Arroyo', codigo: 'u202320691' }
+                ],
                 curso: 'MA475 - Matemática Computacional',
                 profesor: 'Jonathan Abrahan Sueros Zarate',
                 universidad: 'Universidad Peruana de Ciencias Aplicadas'

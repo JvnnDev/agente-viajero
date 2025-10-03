@@ -1,12 +1,6 @@
-/**
- * TSP Solver React Application
- * Jude Alessandro Hermoza Quispe (u202318220)
- */
-
 const { useState, useEffect, useRef } = React;
 
 function TSPApp() {
-    // Estados
     const [nodes, setNodes] = useState([]);
     const [edges, setEdges] = useState([]);
     const [numNodes, setNumNodes] = useState(8);
@@ -18,11 +12,10 @@ function TSPApp() {
         execTime: 0 
     });
 
-    // Referencias
     const cyRef = useRef(null);
     const graphManager = useRef(null);
 
-    // Inicializa el grafo
+    // se inicializa el grafo
     useEffect(() => {
         if (cyRef.current && !graphManager.current) {
             graphManager.current = new GraphManager(cyRef.current);
@@ -30,14 +23,13 @@ function TSPApp() {
         }
     }, []);
 
-    // Actualiza el grafo cuando cambian nodos/aristas
+    // update del grafo cuando cambia un nodo o arista
     useEffect(() => {
         if (graphManager.current) {
             graphManager.current.update(nodes, edges);
         }
     }, [nodes, edges]);
 
-    // Genera grafo aleatorio
     const generateRandomGraph = () => {
         const { nodes: newNodes, edges: newEdges } = 
             GraphManager.generateRandomGraph(numNodes);
@@ -48,7 +40,6 @@ function TSPApp() {
         setStats({ totalRoutes: 0, optimalCost: 0, execTime: 0 });
     };
 
-    // Limpia el grafo
     const clearGraph = () => {
         setNodes([]);
         setEdges([]);
@@ -56,7 +47,6 @@ function TSPApp() {
         setStats({ totalRoutes: 0, optimalCost: 0, execTime: 0 });
     };
 
-    // Resuelve el TSP
     const solveTSP = () => {
         if (nodes.length < 3) {
             alert('Necesitas al menos 3 nodos para resolver el TSP');
@@ -65,7 +55,6 @@ function TSPApp() {
 
         setIsCalculating(true);
 
-        // Usa setTimeout para no bloquear la UI
         setTimeout(() => {
             try {
                 const getWeight = (from, to) => 
@@ -77,7 +66,6 @@ function TSPApp() {
                 setResults(allResults);
                 setStats(newStats);
                 
-                // Resalta la ruta óptima
                 if (graphManager.current) {
                     graphManager.current.highlightOptimalRoute(newStats.optimalRoute);
                 }
@@ -89,7 +77,6 @@ function TSPApp() {
         }, 100);
     };
 
-    // Exporta resultados
     const exportResults = () => {
         if (results.length === 0) {
             alert('No hay resultados para exportar');
@@ -98,21 +85,19 @@ function TSPApp() {
         TSPSolver.exportResults(nodes, results, stats);
     };
 
-    // Resetea el zoom del grafo
     const resetZoom = () => {
         if (graphManager.current) {
             graphManager.current.resetZoom();
         }
     };
 
-    // Map de IDs a labels
     const nodeMap = {};
     nodes.forEach(n => { nodeMap[n.id] = n.label; });
 
     return (
         <div className="max-w-7xl mx-auto">
             <div className="bg-white rounded-2xl shadow-2xl p-8 animate-in">
-                {/* Header */}
+                {}
                 <div className="text-center mb-8">
                     <h1 className="text-5xl font-bold text-transparent bg-clip-text gradient-bg mb-3">
                         TSP Solver
@@ -120,12 +105,17 @@ function TSPApp() {
                     <p className="text-gray-600 text-lg">
                         Problema del Agente Viajero | Algoritmo de Fuerza Bruta
                     </p>
-                    <p className="text-sm text-gray-500 mt-2">
-                        Por: Jude Alessandro Hermoza Quispe (u202318220)
-                    </p>
+                    <div className="text-sm text-gray-500 mt-2">
+                        <div className="mb-1"><strong>Integrantes:</strong></div>
+                        <div>Steven Angel Coaila Zaa (u202216463)</div>
+                        <div>Jude Alessandro Hermoza Quispe (u202318220)</div>
+                        <div>Nicolas Tantalean Granda (u202410728)</div>
+                        <div>Renzo Piero Santos Minaya (u202114790)</div>
+                        <div>Santiago Luis Nahui Arroyo (u202320691)</div>
+                    </div>
                 </div>
 
-                {/* Controls */}
+                {}
                 <div className="bg-gray-50 rounded-xl p-6 mb-6">
                     <div className="flex flex-wrap gap-4 items-center justify-center">
                         <div className="flex items-center gap-2">
@@ -171,9 +161,9 @@ function TSPApp() {
                     </p>
                 </div>
 
-                {/* Main Content */}
+                {}
                 <div className="grid md:grid-cols-2 gap-6 mb-6">
-                    {/* Graph */}
+                    {}
                     <div>
                         <div className="flex justify-between items-center mb-3">
                             <h3 className="text-xl font-bold text-gray-800">Grafo</h3>
@@ -187,7 +177,7 @@ function TSPApp() {
                         <div ref={cyRef} id="cy" className="w-full h-96 bg-gray-50"></div>
                     </div>
 
-                    {/* Results */}
+                    {}
                     <div>
                         <h3 className="text-xl font-bold text-gray-800 mb-3">Resultados</h3>
                         <div className="bg-gray-50 rounded-xl p-4 h-96 overflow-y-auto scrollbar-custom">
@@ -227,7 +217,7 @@ function TSPApp() {
                     </div>
                 </div>
 
-                {/* Stats */}
+                {}
                 {results.length > 0 && (
                     <div className="grid grid-cols-3 gap-4 animate-in">
                         <div className="stat-card bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6 text-center">
@@ -249,5 +239,4 @@ function TSPApp() {
     );
 }
 
-// Renderiza la aplicación
 ReactDOM.render(<TSPApp />, document.getElementById('root'));

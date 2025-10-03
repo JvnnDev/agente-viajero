@@ -1,8 +1,3 @@
-/**
- * Graph Manager - Manejo de visualización de grafos
- * Utiliza Cytoscape.js para renderizar grafos
- */
-
 class GraphManager {
     constructor(containerRef) {
         this.cy = null;
@@ -10,14 +5,13 @@ class GraphManager {
     }
 
     /**
-     * Inicializa el grafo con Cytoscape
+     * Inicializa el grafo (no explicar esto, ya q es parametrizacion xd)
      */
     initialize() {
         if (this.containerRef && !this.cy) {
             this.cy = cytoscape({
                 container: this.containerRef,
 
-                // Configuración de zoom e interacción
                 zoomingEnabled: true,
                 userZoomingEnabled: true,
                 panningEnabled: true,
@@ -109,15 +103,13 @@ class GraphManager {
     }
 
     /**
-     * Resalta la ruta óptima en el grafo
+     * Resalta la ruta optima
      */
     highlightOptimalRoute(route) {
         if (!this.cy) return;
 
-        // Remueve resaltado previo
         this.cy.edges().removeClass('optimal');
 
-        // Resalta la ruta óptima
         for (let i = 0; i < route.length; i++) {
             const from = route[i];
             const to = route[(i + 1) % route.length];
@@ -133,13 +125,12 @@ class GraphManager {
     }
 
     /**
-     * Genera un grafo aleatorio completo
+     * genera un grafo random
      */
     static generateRandomGraph(numNodes) {
         const nodes = [];
         const edges = [];
 
-        // Genera nodos
         for (let i = 0; i < numNodes; i++) {
             nodes.push({
                 id: `n${i}`,
@@ -147,7 +138,6 @@ class GraphManager {
             });
         }
 
-        // Genera todas las aristas (grafo completo)
         for (let i = 0; i < numNodes; i++) {
             for (let j = i + 1; j < numNodes; j++) {
                 const weight = Math.floor(Math.random() * 50) + 10;
